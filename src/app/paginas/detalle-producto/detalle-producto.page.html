@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ esEdicion ? 'Editar Producto' : 'Nuevo Producto' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <div class="ion-text-center ion-padding" style="background-color: #f9f9f9; border-radius: 12px; margin-bottom: 15px;">
+    <img [src]="imagenPreview || 'assets/placeholder.png'" style="max-height: 140px; border-radius: 12px; border: 1px solid #ccc; object-fit: cover; width: 100%; max-width: 200px;" />
+  </div>
+
+  <ion-item lines="inset">
+    <ion-label position="stacked">Imagen del Producto</ion-label>
+    <input type="file" (change)="onFileSelected($event)" accept="image/*" style="margin-top: 8px; margin-bottom: 8px;" />
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Nombre</ion-label>
+    <ion-input [(ngModel)]="form.nombre" placeholder="Ingrese nombre"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Descripción</ion-label>
+    <ion-input [(ngModel)]="form.descripcion" placeholder="Ingrese descripción"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Precio</ion-label>
+    <ion-input type="number" [(ngModel)]="form.precio" placeholder="0.00"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Stock</ion-label>
+    <ion-input type="number" [(ngModel)]="form.stock" placeholder="0"></ion-input>
+  </ion-item>
+
+  <div class="ion-padding-top">
+    <ion-button expand="block" color="success" (click)="guardar()">
+      <ion-icon slot="start" name="save-outline"></ion-icon>
+      {{ esEdicion ? 'Actualizar Cambios' : 'Guardar Producto' }}
+    </ion-button>
+
+    <ion-button *ngIf="esEdicion" expand="block" color="danger" fill="clear" (click)="eliminar()" class="ion-margin-top">
+      <ion-icon slot="start" name="trash-outline"></ion-icon>
+      Eliminar Producto
+    </ion-button>
+  </div>
+
+</ion-content>

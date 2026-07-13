@@ -1,0 +1,30 @@
+<app-header titulo="Inicio"></app-header>
+<ion-content class="ion-padding" color="light">
+  <ion-card>
+    <ion-card-content class="ion-text-center">
+      <ion-text color="primary">
+        <h2>Bienvenido, <strong>{{ nombreUsuario }}</strong></h2>
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" color="primary" class="ion-margin-top" (click)="irA('/listado-clientes')">
+    <ion-icon name="people-outline" slot="start"></ion-icon>
+    Clientes
+  </ion-button>
+
+  <ion-button expand="block" color="secondary" class="ion-margin-top" (click)="irA('/listado-productos')">
+    <ion-icon name="cart-outline" slot="start"></ion-icon>
+    Productos
+  </ion-button>
+
+  <ion-button expand="block" color="primary" class="ion-margin-top" (click)="irA('/catalogo')">
+    <ion-icon name="grid-outline" slot="start"></ion-icon>
+    Catalogo
+  </ion-button>
+
+  <ion-button expand="block" fill="outline" color="danger" class="ion-margin-top" (click)="logout()">
+    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+    Cerrar Sesión
+  </ion-button>
+</ion-content>

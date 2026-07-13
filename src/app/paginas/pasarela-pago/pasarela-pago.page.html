@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/detalle-pedido"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Confirmar Pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding contenido-pago">
+
+  <div class="monto-container">
+    <p class="monto-label">Monto Total</p>
+    <h2 class="monto-valor">${{ total | number:'1.2-2' }}</h2>
+  </div>
+
+  <div class="seccion-identificacion">
+    <ion-item lines="floating">
+      <ion-label position="stacked">Identificación del Cliente</ion-label>
+      <ion-input [(ngModel)]="identificacion" placeholder="Ingrese cédula o RUC"></ion-input>
+    </ion-item>
+    <ion-button expand="block" fill="outline" class="btn-buscar" (click)="buscarCliente()">
+      <ion-icon slot="start" name="search-outline"></ion-icon>
+      Buscar Cliente
+    </ion-button>
+  </div>
+
+  <div class="seccion-cliente" *ngIf="clienteEncontrado">
+    <ion-note class="aviso-cliente" [color]="clienteExistente ? 'success' : 'warning'">
+      <ion-icon [name]="clienteExistente ? 'checkmark-done-outline' : 'person-add-outline'"></ion-icon>
+      {{ clienteExistente ? 'Cliente existente' : 'Cliente nuevo, complete sus datos' }}
+    </ion-note>
+
+    <ion-item lines="floating" class="ion-margin-top">
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [(ngModel)]="cliente.nombre"></ion-input>
+    </ion-item>
+
+    <ion-item lines="floating" class="ion-margin-top">
+      <ion-label position="stacked">Teléfono</ion-label>
+      <ion-input [(ngModel)]="cliente.telefono"></ion-input>
+    </ion-item>
+
+    <ion-item lines="floating" class="ion-margin-top">
+      <ion-label position="stacked">Correo</ion-label>
+      <ion-input type="email" [(ngModel)]="cliente.correo"></ion-input>
+    </ion-item>
+
+    <ion-item lines="floating" class="ion-margin-top">
+      <ion-label position="stacked">Dirección</ion-label>
+      <ion-input [(ngModel)]="cliente.direccion"></ion-input>
+    </ion-item>
+
+    <ion-item lines="floating" class="ion-margin-top">
+      <ion-label position="stacked">País</ion-label>
+      <ion-input [(ngModel)]="cliente.pais"></ion-input>
+    </ion-item>
+
+    <ion-item lines="floating" class="ion-margin-top">
+      <ion-label position="stacked">Ciudad</ion-label>
+      <ion-input [(ngModel)]="cliente.ciudad"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" color="success" class="btn-confirmar" (click)="confirmarTransaccion()">
+      <ion-icon slot="start" name="checkmark-done-outline"></ion-icon>
+      Confirmar Transacción
+    </ion-button>
+  </div>
+
+</ion-content>

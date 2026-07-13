@@ -1,0 +1,23 @@
+<app-header titulo="Clientes" [mostrarBack]="true"></app-header>
+<ion-content color="light">
+  <div *ngIf="clientes.length === 0" class="ion-text-center ion-padding">
+    <ion-text color="medium"><p>No hay clientes registrados</p></ion-text>
+  </div>
+
+  <ion-list *ngIf="clientes.length > 0">
+    <ion-item *ngFor="let c of clientes" (click)="abrirModal(c)" button detail>
+      <ion-label>
+        <h2><strong>{{ c.nombre }}</strong></h2>
+        <p>CI: {{ c.identificacion }} | Tel: {{ c.telefono }}</p>
+        <p>{{ c.correo }}</p>
+        <p>{{ c.ciudad }}, {{ c.pais }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="abrirModal()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,26 @@
+<app-header titulo="Productos" [mostrarBack]="true"></app-header>
+<ion-content color="light">
+  <div *ngIf="productos.length === 0" class="ion-text-center ion-padding">
+    <ion-text color="medium"><p>No hay productos registrados</p></ion-text>
+  </div>
+
+  <ion-list *ngIf="productos.length > 0">
+    <ion-item *ngFor="let p of productos" (click)="abrirModal(p)" button detail>
+      <ion-thumbnail slot="start" style="--border-radius: 8px; margin-right: 12px;">
+        <img [src]="p.prod_imagen ? 'http://localhost:3000' + p.prod_imagen : 'assets/placeholder.png'" alt="Imagen del producto" />
+      </ion-thumbnail>
+
+      <ion-label>
+        <h2><strong>{{ p.nombre }}</strong></h2>
+        <p>{{ p.descripcion }}</p>
+        <p>Precio: ${{ p.precio }} | Stock: {{ p.stock }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="abrirModal()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/catalogo"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Resumen del Pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding bg-light">
+  <div class="container-detalles">
+    <h3 class="titulo-seccion" style="margin-bottom: 15px; font-weight: bold;">Detalles</h3>
+    
+    <ion-list class="lista-pedido-detalles" style="border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+      <ion-item *ngFor="let det of detalles">
+        <ion-label>
+          <h2><strong> ID: {{ det.id_producto }}</strong></h2>
+          <p>Cantidad solicitada: {{ det.det_cantidad }}</p>
+          <p>Precio Unitario: ${{ det.det_precio | number:'1.2-2' }}</p>
+        </ion-label>
+        <ion-label slot="end" class="ion-text-right">
+          <h3 style="font-weight: bold; color: var(--ion-color-primary);">${{ det.det_cantidad * det.det_precio | number:'1.2-2' }}</h3>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <div style="margin-top: 30px;">
+      <ion-button expand="block" color="success" style="--border-radius: 8px;" (click)="confirmarPedido()">
+        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+        Confirmar Compra
+      </ion-button>
+      
+      <ion-button expand="block" color="danger" fill="clear" class="ion-margin-top" (click)="cancelarPedido()">
+        Cancelar
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-padding ion-text-center" style="background: #f4f5f8; font-size: 1.2rem; font-weight: bold; border-top: 1px solid #ddd; color: #333;">
+  Total: ${{ calcularTotal() | number:'1.2-2' }}
+</ion-footer>
