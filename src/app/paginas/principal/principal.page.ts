@@ -5,7 +5,7 @@ import { HeaderComponent } from '../../componentes/header/header.component';
 import {
   IonContent, IonCard, IonCardContent, IonButton, IonIcon, IonText, IonHeader, IonToolbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { peopleOutline, cartOutline, logOutOutline, gridOutline } from 'ionicons/icons';
+import { peopleOutline, cartOutline, logOutOutline, gridOutline, receiptOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-principal',
@@ -17,7 +17,7 @@ export class PrincipalPage implements OnInit {
   nombreUsuario = '';
 
   constructor(private auth: AuthService, private router: Router) {
-    addIcons({ peopleOutline, cartOutline, logOutOutline, gridOutline });
+    addIcons({peopleOutline,cartOutline,gridOutline,receiptOutline,logOutOutline});
   }
 
   ngOnInit() {

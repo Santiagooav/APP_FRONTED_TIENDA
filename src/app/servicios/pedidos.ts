@@ -11,4 +11,17 @@ export class PedidoService {
   crearPedido(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/pedidos`, data);
   }
+  buscarClientePorCedula(identificacion: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/clientes/buscar/${identificacion}`);
+  }
+
+  guardarPedido(pedido: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/pedidos`, pedido);
+  }
+
+  // Obtener todos los pedidos registrados en el sistema (puedes filtrar por id_usuario si lo requieres)
+  obtenerPedidos(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/pedidos`); // Ajusta la URL según tu API de backend
+  }
+
 }

@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/principal"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mis Pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding bg-light">
+  <div class="historial-container">
+    
+    <h2 class="titulo-historial">Historial de Transacciones</h2>
+    <p class="subtitulo-historial">Visualice, consulte o descargue el PDF de sus facturas registradas.</p>
+
+    <!-- Lista de Pedidos -->
+    <ion-list lines="none" class="lista-pedidos" *ngIf="pedidos.length > 0; else sinPedidos">
+      
+      <div class="pedido-card" *ngFor="let ped of pedidos">
+        
+        <!-- Cabecera del Pedido (Clickeable para expandir individualmente usando ped_id) -->
+        <div class="pedido-header" (click)="toggleDetalles(ped.ped_id)">
+          <div class="info-principal">
+            <!-- CORREGIDO: Ahora muestra el ID real registrado en la Base de Datos -->
+            <span class="num-orden">Orden #{{ ped.ped_id }}</span>
+            <div class="meta-iconos">
+              <span class="fecha">
+                <ion-icon name="calendar-outline"></ion-icon> 
+                {{ ped.ped_fecha | date:'dd/MM/yyyy' }}
+              </span>
+              <span class="cliente">
+                <ion-icon name="person-outline"></ion-icon> 
+                {{ ped.nombre }}
+              </span>
+            </div>
+          </div>
+          
+          <div class="info-secundaria">
+            <ion-badge color="success" class="total-badge">
+              ${{ calcularTotalPedido(ped.detalles) | number:'1.2-2' }}
+            </ion-badge>
+            <!-- CORREGIDO: Rotación del ícono individual -->
+            <ion-icon 
+              [name]="pedidoExpandidoId === ped.ped_id ? 'chevron-up-outline' : 'chevron-down-outline'" 
+              class="flecha-icon">
+            </ion-icon>
+          </div>
+        </div>
+
+        <!-- Cuerpo del Pedido (CORREGIDO: Se expande SOLAMENTE si coincide con el ped_id seleccionado) -->
+        <div class="pedido-cuerpo" *ngIf="pedidoExpandidoId === ped.ped_id">
+          <h4 class="detalles-titulo">
+            <ion-icon name="document-text-outline"></ion-icon> 
+            Resumen de Compra
+          </h4>
+          
+          <!-- Tabla/Lista de Artículos -->
+          <div class="item-desglose" *ngFor="let det of ped.detalles">
+            <span class="articulo-nombre">
+              {{ det.nombre_producto || 'Producto ID: ' + det.id_producto }} 
+              <small>x{{ det.det_cantidad }}</small>
+            </span>
+            <span class="articulo-subtotal">
+              ${{ (det.det_precio * det.det_cantidad) | number:'1.2-2' }}
+            </span>
+          </div>
+
+          <hr class="divisor">
+
+          <!-- Acciones de Factura -->
+          <div class="cuerpo-acciones">
+            <ion-button color="secondary" size="small" fill="solid" (click)="descargarFacturaPDF(ped)">
+              <ion-icon slot="start" name="download-outline"></ion-icon>
+              Descargar Factura PDF
+            </ion-button>
+          </div>
+        </div>
+
+      </div>
+
+    </ion-list>
+
+    <!-- Template cuando no hay pedidos -->
+    <ng-template #sinPedidos>
+      <div class="empty-state">
+        <ion-icon name="receipt-outline" class="icon-empty"></ion-icon>
+        <h3>No se encontraron pedidos</h3>
+        <p>Aún no has registrado ninguna compra en nuestro sistema.</p>
+      </div>
+    </ng-template>
+
+  </div>
+</ion-content>

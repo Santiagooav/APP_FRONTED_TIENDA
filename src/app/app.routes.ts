@@ -18,4 +18,8 @@ export const routes: Routes = [
     path: 'pasarela-pago',
     loadComponent: () => import('./paginas/pasarela-pago/pasarela-pago.page').then( m => m.PasarelaPagoPage)
   },
+  {
+    path: 'historial-pedidos',
+    loadComponent: () => import('./paginas/historial-pedidos/historial-pedidos.page').then( m => m.HistorialPedidosPage)
+  },
 ];
